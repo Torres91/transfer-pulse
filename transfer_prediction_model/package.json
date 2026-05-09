@@ -7,10 +7,14 @@
   ],
   "scripts": {
     "dev": "npm run dev --workspace=apps/web",
-    "build": "npm run build --workspace=apps/web",
+    "build": "npm run build --workspace=services/ingestion",
+    "start": "npm run start --workspace=services/ingestion",
     "ingestion": "npm run dev --workspace=services/ingestion",
     "contracts:build": "cd contracts && forge build",
     "contracts:test": "cd contracts && forge test -vvv",
     "contracts:deploy:testnet": "cd contracts && forge script script/Deploy.s.sol --rpc-url polygon_mumbai --broadcast --verify"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
