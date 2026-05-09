@@ -3,6 +3,10 @@ import type { RawRumourItem } from '../sources/types'
 import type { VerifiedRumour } from '../verifier'
 import { calcCredibility } from '../scorer'
 
+function isValidDate(d: Date): boolean {
+  return d instanceof Date && !isNaN(d.getTime())
+}
+
 const supabase = createClient(
   process.env.SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_KEY!,
@@ -23,7 +27,7 @@ export async function upsertRumourItems(items: RawRumourItem[]): Promise<void> {
     from_club:   item.fromClub || null,
     to_club:     item.toClub || null,
     fee_mention: item.feeMention || null,
-    published_at: item.publishedAt.toISOString(),
+    published_at: isValidDate(item.publishedAt) ? item.publishedAt.toISOString() : new Date().toISOString(),
     raw_text:    item.rawText || null,
   }))
 
